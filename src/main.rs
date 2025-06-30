@@ -1,9 +1,13 @@
+mod routes;
+
 use axum::{
     routing::get,
-    Router,
+    Router
 };
 use dotenv::dotenv;
 use std::env;
+
+use routes::files::file_routes;
 
 #[tokio::main]
 async fn main() {
@@ -15,7 +19,9 @@ async fn main() {
 
     println!("{} corriendo en: {}", project_name, url);
     // build our application with a single route
-    let app = Router::new().route("/", get(|| async { "Hello, World!" }));
+    let app = Router::new()
+        .route("/", get(|| async { "Hello, World!" }))
+        .nest("/files", file_routes());
 
     // run our app with hyper, listening globally on port 3000
     let listener = tokio::net::TcpListener::bind(url).await.unwrap();
