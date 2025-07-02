@@ -1,11 +1,7 @@
-use axum::{
-    Router,
-    routing::post,
-};
+use axum::{Router, routing::get};
 
-use forgefs_backend::handlers::files::upload_handler;
-
-pub fn file_routes() -> Router {
+pub fn user_routes() -> Router {
     Router::new()
-        .route("/upload", post(upload_handler))
+        .route("/profile", get(|| async { "User profile" }))
 }
+

@@ -7,7 +7,7 @@ use axum::{
 use dotenv::dotenv;
 use std::env;
 
-use routes::files::file_routes;
+use routes::file_routes;
 
 #[tokio::main]
 async fn main() {
