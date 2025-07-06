@@ -1,7 +1,7 @@
 use axum::{Router, routing::get};
 
-pub fn user_routes() -> Router {
+pub fn file_routes() -> Router {
     Router::new()
-        .route("/profile", get(|| async { "User profile" }))
+        .route("/files", get(|| async { "File router" }))
 }
 
