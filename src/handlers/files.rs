@@ -14,7 +14,7 @@
     // 4. Manejar errores, y devolver una respusta
 //}
 
-pub fn pintamosEnPantalla(){
+pub fn pintamos_en_pantalla(){
     println!("Esto esta siendo llamado desde handler");
 }
 
