@@ -19,11 +19,9 @@ async fn main() {
     //handlers::files::pintamos_en_pantalla();
 
     println!("{} corriendo en: {}", project_name, url);
-    // build our application with a single route
-    let app = Router::new()
-        .route("/", get(|| async { "Vero cara wuebo!!!" }))
-        .nest("/files", routes::files::file_routes());
+    // build our application with a single routes
 
+    let app = routes::app_routes();
     // run our app with hyper, listening globally on port 3000
     let listener = tokio::net::TcpListener::bind(url).await.unwrap();
     axum::serve(listener, app).await.unwrap();
