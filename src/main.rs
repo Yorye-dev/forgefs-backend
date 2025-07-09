@@ -2,6 +2,7 @@ mod routes;
 mod handlers;
 mod services;
 //mod infra;
+mod domain;
 
 use dotenv::dotenv;
 use std::env;
