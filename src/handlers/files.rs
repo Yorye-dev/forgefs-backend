@@ -1,23 +1,39 @@
 use axum::{
-    extract::Multipart,
+    extract::{Multipart, Query},
     http::StatusCode,
     response::IntoResponse,
+    Json,
 };
+use serde_json::json;
+use log::{info, warn};
+
 //use crate::services::file_service::FileService;
 use crate::domain::file::UploadFile;
 
-pub fn upload_file_handler (//mut multipart: Multipart
-                                 ){
+pub async fn upload_file_handler (mut multipart: Multipart){
 
-    // 1. Parsear el multipart a un Objeto con nombre y contenido?
+    while let Some(mut field) = multipart.next_field().await.unwrap() {
+        let name = field.name().unwrap().to_string();
+        let data = field.bytes().await.unwrap();
+
+        println!("Length of `{}` is {} bytes", name, data.len());
+    }
+    // 1. Parsear el multipart a un Objeto con nombre y contenido? - esto se teine que delar a una
+    //    funcion que retorne ya la struc completa:
+    //
     // 2. Obtener las ruta destino.
     // 3. Llamar a la capa de servcio, con un contenido, nombre y ruta destino.
     // 4. Manejar errores y devoer una respeusta.
-
-   println!("Esto esta siendo llamado desde handler");
 }
 
-//async fn parse_multipart (multipart :Multipart, )
+pub async fn preuba_logs() -> impl IntoResponse {
+    println!("📢 Se llamó al handler");
+    warn!("Pete");
+    info!("Info");
+    Json("ok")
+}
+
+//async fn parse_multipart_to_ (multipart :Multipart, )
 
 //pub async fn upload_handler (mut multipart: Multipart) {//-> impl IntoResponse{
     // 1. Parsear el multipart  (nomber, contenido)
