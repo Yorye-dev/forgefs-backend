@@ -12,6 +12,4 @@ pub fn file_routes() -> Router {
     Router::new()
         .route("/upload", post(upload_file_handler))
         .route("/preuba", get(preuba_logs))
-
-// llamar a la handlers
 }

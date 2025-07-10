@@ -5,6 +5,8 @@ use axum::{
     Json,
 };
 use serde_json::json;
+use base64::engine::general_purpose;
+use base64::Engine;
 use log::{info, warn};
 
 //use crate::services::file_service::FileService;
@@ -31,6 +33,24 @@ pub async fn preuba_logs() -> impl IntoResponse {
     warn!("Pete");
     info!("Info");
     Json("ok")
+}
+
+async fn parse_multipart(mut multipart: Multipart) -> Vec<UploadFile> {
+
+    let mut files_info = Vec::new();
+
+    while let Some(mut field) = multipart.next_field().await.unwrap() {
+        let name = field.name().unwrap_or("unnamed").to_string();
+        let data = field.bytes().await.unwrap();
+
+        files_info.push(UploadFile {
+            name,
+            size: data.len(),
+            data: general_purpose::STANDARD.encode(&data),
+        });
+    }
+
+    files_info
 }
 
 //async fn parse_multipart_to_ (multipart :Multipart, )
