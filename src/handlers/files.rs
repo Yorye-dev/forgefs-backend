@@ -10,22 +10,22 @@ use base64::Engine;
 use log::{info, warn};
 
 //use crate::services::file_service::FileService;
-use crate::domain::file::UploadFile;
+use crate::domain::file::{UploadFile, UploadQuery};
 
-pub async fn upload_file_handler (mut multipart: Multipart){
+pub async fn upload_file_handler (query: Query<UploadQuery>, multipart: Multipart) -> impl  IntoResponse{
 
-    while let Some(mut field) = multipart.next_field().await.unwrap() {
-        let name = field.name().unwrap().to_string();
-        let data = field.bytes().await.unwrap();
-
-        println!("Length of `{}` is {} bytes", name, data.len());
-    }
+    let _files :Vec<UploadFile> = parse_multipart(multipart).await;
+    let _dest_path :String = query.dest_path.clone();
     // 1. Parsear el multipart a un Objeto con nombre y contenido? - esto se teine que delar a una
     //    funcion que retorne ya la struc completa:
-    //
+    // 
     // 2. Obtener las ruta destino.
     // 3. Llamar a la capa de servcio, con un contenido, nombre y ruta destino.
     // 4. Manejar errores y devoer una respeusta.
+    //
+    println!("Esto es el path {} y esto el nombre del fichero ...", _dest_path,  );
+
+    Json("ok")
 }
 
 pub async fn preuba_logs() -> impl IntoResponse {
