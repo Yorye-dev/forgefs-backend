@@ -1,15 +1,15 @@
 use crate::services::file_service::FileService;
-use crate::domain::file::FileUpload;
-use crate::error::AppError;
+use crate::domain::file::UploadFile;
+use std::error::Error;
 
 pub struct FileServiceImpl;
 
-#[async_trait::async_trait]
+// [async_trait::async_trait]
 impl FileService for FileServiceImpl {
-    async fn upload_file(&self, file: FileUpload) -> Result<(), AppError> {
-        // Aquí va la lógica
+    async fn upload_file(&self, file: UploadFile, dest_path: String) {
+        // llamar a infra
         println!("Subiendo fichero: {}", file.name);
-        Ok(())
+        //Ok(())
     }
 }
 
