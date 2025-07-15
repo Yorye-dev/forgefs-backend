@@ -9,20 +9,24 @@ use base64::engine::general_purpose;
 use base64::Engine;
 use log::{info, warn};
 
-//use crate::services::file_service::FileService;
+use crate::services::file_service::FileService;
 use crate::domain::file::{UploadFile, UploadQuery};
 
-pub async fn upload_file_handler (query: Query<UploadQuery>, multipart: Multipart) -> impl  IntoResponse{
+pub async fn upload_file_handler (
+    query: Query<UploadQuery>, 
+    multipart: Multipart
+    ) -> impl  IntoResponse{
 
-    let _files :Vec<UploadFile> = parse_multipart(multipart).await;
-    let _dest_path :String = query.dest_path.clone();
+    let _files: Vec<UploadFile> = parse_multipart(multipart).await;
+    let _dest_path: String = query.dest_path.clone();
     // 1. Parsear el multipart a un Objeto con nombre y contenido? - esto se teine que delar a una
     //    funcion que retorne ya la struc completa:
     // 
     // 2. Obtener las ruta destino.
     // 3. Llamar a la capa de servcio, con un contenido, nombre y ruta destino.
-    // 4. Manejar errores y devoer una respeusta.
     //
+    FileService::upload_file(_files, _dest_path).await;
+
     println!("Esto es el path {} y esto el nombre del fichero ...", _dest_path,  );
 
     Json("ok")
